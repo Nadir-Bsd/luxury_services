@@ -12,8 +12,7 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}
-            test
-        {% endblock %}
+        {{ include('header.html.twig') }}
+        {% block body %}{% endblock %}
     </body>
 </html>
