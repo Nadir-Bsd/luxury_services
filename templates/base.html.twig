@@ -87,9 +87,7 @@ $(handler);
 			{% endblock %}
 		{% endblock %}
 
-		{% block styleCustom %}
-
-		{% endblock %}
+		{% block styleCustom %}{% endblock %}
 
 	</head>
 	<body id="top">
@@ -120,7 +118,7 @@ $(handler);
 											<a href="{{ path('app_home') }}">Home</a>
 										</li>
 										<li>
-											<a href={{ path('app_job') }}>Jobs Offers</a>
+											<a href="{{ path('app_job') }}">Jobs Offers</a>
 										</li>
 										<li>
 											<a href="{{ path('app_company') }}">About Us</a>
@@ -128,31 +126,34 @@ $(handler);
 										<li>
 											<a href="{{ path('app_contact') }}">Contact</a>
 										</li>
-										<li>-</li>
-										<li>
-											<a href="{{ path('app_profile') }}">Profile</a>
-										</li>
-										<li>
-											<a href="{{ path('app_logout') }}">Logout</a>
-										</li>
+										{% if app.user %}
+											<li>-</li>
+											<li>
+												<a href="{{ path('app_profile') }}">Profile</a>
+											</li>
+											<li>
+												<a href="{{ path('app_logout') }}">Logout</a>
+											</li>
+										{% endif %}
 									</ul>
 								</nav>
 							</div>
 						</div>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="menuzord-menu pull-right light" role="navigation">
-								<li class=" dropdown">
-									<a target="_self" href="{{ path('app_login') }}">
-										<span>Login</span>
-									</a>
-								</li>
-								<li class=" dropdown">
-									<a target="_self" href="{{ path('app_register') }}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
-										<span>Sign Up</span>
-									</a>
-
-								</li>
-							</ul>
+							{% if app.user == false %}
+								<ul class="menuzord-menu pull-right light" role="navigation">
+									<li class=" dropdown">
+										<a target="_self" href="{{ path('app_login') }}">
+											<span>Login</span>
+										</a>
+									</li>
+									<li class=" dropdown">
+										<a target="_self" href="{{ path('app_register') }}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+											<span>Sign Up</span>
+										</a>
+									</li>
+								</ul>
+							{% endif %}
 							<ul class="menuzord-menu pull-right light" role="navigation">
 								<li class="active dropdown">
 									<a target="_self" href="{{ path('app_home') }}">
@@ -274,8 +275,8 @@ $(handler);
 			{% block javascriptFooter %}
 				<script>
 					onAppReady(function () {
-						$('.preload').remove();
-					});
+$('.preload').remove();
+});
 				</script>
 
 			{% endblock %}
