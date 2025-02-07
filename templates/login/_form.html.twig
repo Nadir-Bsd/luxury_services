@@ -1,0 +1,55 @@
+{% if error %}
+	<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+{% if app.user %}
+	<div class="mb-3">
+		You are logged in as
+		{{ app.user.userIdentifier }},
+		<a href="{{ path('app_logout') }}">Logout</a>
+	</div>
+{% endif %}
+
+
+<form id="login-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
+
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+	{# email #}
+	<div class="input-field">
+		<input type="email" name="_username" class="form-control" id="email" value="{{ last_username }}" autocomplete="email" required autofocus data-parsley-trigger="change" data-parsley-error-message="A valid email address is required.">
+		<label for="username">Email</label>
+		<span class="help-block">Type your email address.</span>
+	</div>
+
+	{# password #}
+	<div class="input-field">
+		<input type="password" name="_password" class="form-control" id="password" required data-parsley-trigger="change" data-parsley-error-message="The password must be at least 6 characters.">
+		<label for="password">Password</label>
+		<i class="fa fa-eye show-password"></i>
+		<span class="help-block">Type your password.</span>
+	</div>
+
+	{# checkbox #}
+	<div class="checkbox">
+		<input type="checkbox" id="keep-logged" name="remember" value="1"/>
+		<label for="keep-logged">Keep me logged in</label>
+	</div>
+
+	<button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">Login</button>
+
+	{# forgot link #}
+	<div class="links">
+		<a href="#!">Forgot your password?</a>
+	</div>
+</form>
+
+
+{#
+	Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+	See https://symfony.com/doc/current/security/remember_me.html
+	<div class="checkbox mb-3">
+	    <input type="checkbox" name="_remember_me" id="_remember_me">
+	    <label for="_remember_me">Remember me</label>
+	</div>
+#}
