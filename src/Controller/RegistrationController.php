@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidate;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -56,7 +57,6 @@ class RegistrationController extends AbstractController
             $candidate->setUser($user);
             $entityManager->persist($candidate);
             $entityManager->flush();
-
 
             return $this->redirectToRoute('app_login');
         }

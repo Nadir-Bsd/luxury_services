@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -30,7 +31,7 @@ class Candidate
     private ?string $nationality = null;
 
     #[ORM\Column]
-    private ?bool $isPassport = null;
+    private ?bool $isPassport = false;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_passport = null;
@@ -51,7 +52,7 @@ class Candidate
     private ?string $birth_location = null;
 
     #[ORM\Column]
-    private ?bool $isAvailable = null;
+    private ?bool $isAvailable = false;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
@@ -68,9 +69,15 @@ class Candidate
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deleted_at = null;
 
-    #[ORM\OneToOne(inversedBy: 'candidate', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'Candidate', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $id_user = null;
+    private ?User $User = null;
+
+    public function __construct()
+    {
+        $this->created_at = new DateTimeImmutable();
+        $this->updated_at = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -293,14 +300,14 @@ class Candidate
         return $this;
     }
 
-    public function getIdUser(): ?User
+    public function getUser(): ?User
     {
-        return $this->id_user;
+        return $this->User;
     }
 
-    public function setIdUser(User $id_user): static
+    public function setUser(User $User): static
     {
-        $this->id_user = $id_user;
+        $this->User = $User;
 
         return $this;
     }
