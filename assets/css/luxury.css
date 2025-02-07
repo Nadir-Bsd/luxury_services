@@ -36,13 +36,13 @@ body .page-title-bg {
     background-image: url('../img/bg3.jpg');
 }
 body .log-section form .checkbox label {
-    font-size: 16px
+    font-size: 16px;
 }
 body .log-section form .checkbox label a {
     color: #b6a575;
     text-decoration: underline;
     text-transform: inherit;
-    font-size: 16px
+    font-size: 16px;
 }
 body .log-section form .links a {
     display: block;
@@ -68,7 +68,8 @@ body .log-section form .links a {
     margin-top: 1rem
 }
 #candidateForm .checkbox label {
-    font-size: 16px
+    font-size: 16px;
+    left: 0px;
 }
 #candidateForm .passport .file-field {
     margin-top: 10px
