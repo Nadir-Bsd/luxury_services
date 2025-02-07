@@ -50,6 +50,13 @@ class RegistrationController extends AbstractController
             );
 
             // do anything else you need here, like send an email
+            
+            // create candidate for the user who has been registered
+            $candidate = new Candidate();
+            $candidate->setUser($user);
+            $entityManager->persist($candidate);
+            $entityManager->flush();
+
 
             return $this->redirectToRoute('app_login');
         }

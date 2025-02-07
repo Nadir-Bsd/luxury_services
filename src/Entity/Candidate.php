@@ -68,18 +68,6 @@ class Candidate
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deleted_at = null;
 
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $id_experience = null;
-
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $id_gender = null;
-
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $id_user = null;
-
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $id_job_category = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -297,54 +285,6 @@ class Candidate
     public function setDeletedAt(?\DateTimeImmutable $deleted_at): static
     {
         $this->deleted_at = $deleted_at;
-
-        return $this;
-    }
-
-    public function getIdExperience(): ?string
-    {
-        return $this->id_experience;
-    }
-
-    public function setIdExperience(?string $id_experience): static
-    {
-        $this->id_experience = $id_experience;
-
-        return $this;
-    }
-
-    public function getIdGender(): ?string
-    {
-        return $this->id_gender;
-    }
-
-    public function setIdGender(?string $id_gender): static
-    {
-        $this->id_gender = $id_gender;
-
-        return $this;
-    }
-
-    public function getIdUser(): ?string
-    {
-        return $this->id_user;
-    }
-
-    public function setIdUser(string $id_user): static
-    {
-        $this->id_user = $id_user;
-
-        return $this;
-    }
-
-    public function getIdJobCategory(): ?string
-    {
-        return $this->id_job_category;
-    }
-
-    public function setIdJobCategory(?string $id_job_category): static
-    {
-        $this->id_job_category = $id_job_category;
 
         return $this;
     }
