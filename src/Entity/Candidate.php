@@ -68,6 +68,10 @@ class Candidate
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deleted_at = null;
 
+    #[ORM\OneToOne(inversedBy: 'candidate', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $id_user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -285,6 +289,18 @@ class Candidate
     public function setDeletedAt(?\DateTimeImmutable $deleted_at): static
     {
         $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?User
+    {
+        return $this->id_user;
+    }
+
+    public function setIdUser(User $id_user): static
+    {
+        $this->id_user = $id_user;
 
         return $this;
     }
