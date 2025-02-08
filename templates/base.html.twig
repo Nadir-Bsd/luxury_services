@@ -102,7 +102,7 @@ $(handler);
 							{% if app.user %}
 								<div class="icon-wrapper">
 									<span class="account">
-										<a href="{{ path('app_profile') }}">
+										<a href="{{ path('app_candidate') }}">
 											<i class="material-icons">&#xE7FD;</i>
 										</a>
 									</span>
@@ -124,9 +124,10 @@ $(handler);
 											<a href="{{ path('app_contact') }}">Contact</a>
 										</li>
 										{% if app.user %}
+
 											<li>-</li>
 											<li>
-												<a href="{{ path('app_profile') }}">Profile</a>
+												<a href="{{ path('app_candidate_edit', {id: app.user.id}) }}">Profile</a>
 											</li>
 											<li>
 												<a href="{{ path('app_logout') }}">Logout</a>
@@ -161,7 +162,7 @@ $(handler);
 							{% else %}
 								<ul class="menuzord-menu pull-right light" role="navigation">
 									<li class=" dropdown">
-										<a target="_self" href="{{ path('app_profile') }}">
+										<a target="_self" href="{{ path('app_candidate_edit', {id: app.user.id}) }}">
 											<span>Profile</span>
 										</a>
 									</li>
@@ -180,7 +181,7 @@ $(handler);
 									</a>
 								</li>
 								<li class=" dropdown">
-									<a target="_self" href={{ path('app_job') }}>
+									<a target="_self" href="{{ path('app_job') }}">
 										<i class=""></i>
 										<span>Jobs offers</span>
 									</a>
