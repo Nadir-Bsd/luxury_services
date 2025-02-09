@@ -3,17 +3,15 @@
     <div class="container">
         <div class="row">
             <h3 class="text-extrabold">Your personal informations</h3>
+
+            {# gender #}
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="input-field">
-                    {# <select id="gender" name="gender">
-                        <option value="">Choose an option...</option>
-                        <option value="male">Male</option>
-                        <option value="female" selected="selected">Female</option>
-                        <option value="transgender">Transgender</option>
-                    </select>
-                    <label for="gender" class="active">Gender</label>
+                    {{ form_label(form.gender) }}
+                    {{ form_widget(form.gender) }}
                 </div>
-            </div> #}
+            </div>
+
             <div class="clearfix visible-sm"></div>
 
             {# firstname #}
@@ -48,6 +46,7 @@
                 </div>
             </div>
 
+            {# profile picture not finish #}
             <div class="row">
                 {# files download #}
                 {# <div class="col-xs-12 col-sm-6 col-md-4">
@@ -118,6 +117,8 @@
                 <h3 class="text-extrabold">Your professional profile</h3>
                 <div class="col-xs-12 col-sm-6">
                     <div class="card card-panel passport">
+
+                    {# passport #}
                         <div class="file-field input-field">
 
                             {# <div class="btn btn-lg primary waves-effect waves-light">
@@ -139,6 +140,7 @@
                                 <input class="file-path validate" type="text" placeholder="Upload your passport" readonly>
                             </div> #}
                         </div>
+                    {# CV #}
                         <div class="file-field input-field">
 
                             {# <div class="btn btn-lg primary waves-effect waves-light">
@@ -165,6 +167,8 @@
             </div>
 
             <div class="col-xs-12 col-sm-6">
+
+                {# job category #}
                 <div class="col-xs-12 col-sm-12">
                     <div class="input-field" style="margin-top: 5px;">
                         {# <select id="job_sector" name="job_sector[]" multiple data-placeholder="Type in or Select job sector you would be interested in.">
@@ -174,8 +178,10 @@
                         <label for="job_sector" class="active">Interest in job sector</label>
                     </div>
                 </div>
-                {# <div class="col-xs-12 col-sm-12">
-                    <div class="input-field">
+
+                {# experience #}
+                <div class="col-xs-12 col-sm-12">
+                    {# <div class="input-field">
                         <select id="experience" required="required" name="experience">
                             <option value="">Choose</option>
                             <option value="3m">0 - 6 month</option>
@@ -186,14 +192,15 @@
                             <option value="10y">10+ years</option>
                         </select>
                         <label for="experience" class="active">Experience</label>
-                    </div>
+                    </div> #}
                 </div>
-            </div> #}
+            </div>
+
+            {# description #}
             <div class="col-xs-12 col-sm-12">
                 <div class="input-field">
                     {{ form_label(form.description) }}
                     {{ form_widget(form.description) }}
-                    {# <textarea  name="description" cols="50" rows="10"></textarea> #}
                 </div>
             </div>
         </div>

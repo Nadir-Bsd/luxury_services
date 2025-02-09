@@ -73,6 +73,9 @@ class Candidate
     #[ORM\JoinColumn(nullable: false)]
     private ?User $User = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Candidate')]
+    private ?Gender $Gender = null;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
@@ -308,6 +311,18 @@ class Candidate
     public function setUser(User $User): static
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getGender(): ?Gender
+    {
+        return $this->Gender;
+    }
+
+    public function setGender(?Gender $Gender): static
+    {
+        $this->Gender = $Gender;
 
         return $this;
     }

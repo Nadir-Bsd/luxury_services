@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
-use App\Entity\User;
+use App\Entity\Gender;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -50,6 +50,13 @@ class CandidateType extends AbstractType
                     'id' => 'nationality',
                 ],
                 'label' => 'Nationality',
+            ])
+            ->add('gender', EntityType::class, [
+                'class' => Gender::class,
+                'label' => 'Gender',
+                'attr' => [
+                    'id' => 'gender',
+                ],
             ])
             // ->add('isPassport')
             // ->add('file_passport')
