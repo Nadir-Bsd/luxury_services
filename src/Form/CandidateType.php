@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Experience;
 use App\Entity\Gender;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -42,12 +43,14 @@ class CandidateType extends AbstractType
             ->add('country', TextType::class, [
                 'attr' => [
                     'id' => 'country',
+                    // 'required' => true,
                 ],
                 'label' => 'Country',
             ])
             ->add('nationality', TextType::class, [
                 'attr' => [
                     'id' => 'nationality',
+                    // 'required' => true,
                 ],
                 'label' => 'Nationality',
             ])
@@ -56,6 +59,15 @@ class CandidateType extends AbstractType
                 'label' => 'Gender',
                 'attr' => [
                     'id' => 'gender',
+                    // 'required' => true,
+                ],
+            ])
+            ->add('experience', EntityType::class, [
+                'class' => Experience::class,
+                'label' => 'Experience',
+                'attr' => [
+                    'id' => 'experience',
+                    // 'required' => true,
                 ],
             ])
             // ->add('isPassport')

@@ -76,6 +76,9 @@ class Candidate
     #[ORM\ManyToOne(inversedBy: 'Candidate')]
     private ?Gender $Gender = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Candidate')]
+    private ?Experience $Experience = null;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
@@ -323,6 +326,18 @@ class Candidate
     public function setGender(?Gender $Gender): static
     {
         $this->Gender = $Gender;
+
+        return $this;
+    }
+
+    public function getExperience(): ?Experience
+    {
+        return $this->Experience;
+    }
+
+    public function setExperience(?Experience $Experience): static
+    {
+        $this->Experience = $Experience;
 
         return $this;
     }
