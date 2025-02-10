@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Category;
 use App\Entity\Experience;
 use App\Entity\Gender;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -70,11 +71,19 @@ class CandidateType extends AbstractType
                     // 'required' => true,
                 ],
             ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'label' => 'Category',
+                'attr' => [
+                    'placeholder' => 'Type in or Select job sector you would be interested in.',
+                    'id' => 'job_sector',
+                ],
+            ])
             // ->add('isPassport')
             // ->add('file_passport')
             // ->add('file_cv')
             // ->add('file_pp')
-            ->add('location' , TextType::class, [
+            ->add('location', TextType::class, [
                 'attr' => [
                     'id' => 'current_location',
                     // 'required' => true,
@@ -102,7 +111,13 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'Description',
             ])
-            ->add('notes')
+            // ->add('notes', TextareaType::class, [
+            //     'attr' => [
+            //         'class' => "materialize-textarea",  
+            //         'id' => 'notes',
+            //     ],
+            //     'label' => 'Notes',
+            // ])
             // ->add('created_at', null, [
             //     'widget' => 'single_text',
             // ])
