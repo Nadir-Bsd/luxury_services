@@ -6,13 +6,18 @@ use App\Entity\Candidate;
 use App\Entity\Category;
 use App\Entity\Experience;
 use App\Entity\Gender;
+use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CandidateType extends AbstractType
 {
@@ -80,7 +85,29 @@ class CandidateType extends AbstractType
                 ],
             ])
             // ->add('isPassport')
-            // ->add('file_passport')
+            ->add('file_passport', FileType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '20M',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF, JPG, DOC, DOCX, PNG, or GIF document',
+                    ]),
+                ],
+                'attr' => [
+                    'accept' => '.pdf,.jpg,.doc,.docx,.png,.gif',
+                    'id' => 'passport',
+                    // 'required' => true,
+                ],
+            ])
             // ->add('file_cv')
             // ->add('file_pp')
             ->add('location', TextType::class, [
@@ -111,6 +138,7 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'Description',
             ])
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->setUpdateAt(...))
         ;
     }
 
@@ -119,5 +147,11 @@ class CandidateType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Candidate::class,
         ]);
+    }
+
+    private function setUpdateAt(FormEvent $e): void
+    {
+        $candidate = $e->getData();
+        $candidate->setUpdatedAt(new DateTimeImmutable());
     }
 }

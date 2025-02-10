@@ -46,9 +46,8 @@
                 </div>
             </div>
 
-            {# profile picture  not finish #}
             <div class="row">
-                {# files download #}
+                {# profile picture #}
                 {# <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="file-field input-field" style="margin-top: 32px;">
 
@@ -123,25 +122,30 @@
                     {# passport  not finish #}
                         <div class="file-field input-field">
 
-                            {# <div class="btn btn-lg primary waves-effect waves-light">
+                            {# the true input #}
+                            <div class="btn btn-lg primary waves-effect waves-light">
                                 <span>
                                     <i class="material-icons">&#xE24D;</i>
                                     Passport
                                 </span>
-                                <input id="passport" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="passport" type="file">
-                            </div> #}
+                                {{ form_widget(form.file_passport) }}
+                            </div>
 
-                            {# <div class="existing-file">
+                            {# if un file est deja en DB affiche le name #}
+                            <div class="existing-file">
                                 <a href="#!" target="_blank">
                                     <i class="material-icons">&#xE24D;</i>
                                     passeport.jpg
                                 </a>
-                            </div> #}
+                            </div>
 
-                            {# <div class="file-path-wrapper">
+                            {# affiche le file name #}
+                            <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text" placeholder="Upload your passport" readonly>
-                            </div> #}
+                            </div>
+
                         </div>
+
                     {# CV  not finish #}
                         <div class="file-field input-field">
 

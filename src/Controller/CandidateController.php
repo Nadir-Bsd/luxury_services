@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Form\CandidateType;
 use App\Repository\CandidateRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,7 +52,7 @@ final class CandidateController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request ,EntityManagerInterface $entityManager): Response
+    public function edit(int $id, Request $request ,EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $candidate = $entityManager->getRepository(Candidate::class)->findOneBy(['User' => $id]);
 
@@ -59,9 +60,21 @@ final class CandidateController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($candidate);
+            $passportFile = $form->get('file_passport')->getData();
+            // dd($passportFile);
+
+            if($passportFile){
+                // add the file to the folder 'passport' & remove the old file & return the file name
+                $passportFileName = $fileUploader->upload($passportFile, $candidate, 'passport', 'passport');
+                // set property of candidate
+                $candidate->setFilePassport($passportFileName);
+            }
+
+            $entityManager->persist($candidate);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Candidate updated successfully!');
         }
 
         return $this->render('candidate/index.html.twig', [
