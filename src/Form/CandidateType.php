@@ -111,26 +111,6 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'Description',
             ])
-            // ->add('notes', TextareaType::class, [
-            //     'attr' => [
-            //         'class' => "materialize-textarea",  
-            //         'id' => 'notes',
-            //     ],
-            //     'label' => 'Notes',
-            // ])
-            // ->add('created_at', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('updated_at', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('deleted_at', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('User', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'id',
-            // ])
         ;
     }
 
