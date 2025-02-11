@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Candidate;
 use App\Form\CandidateType;
+use App\Interfaces\FileHandlerInterface;
 use App\Repository\CandidateRepository;
-use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +52,7 @@ final class CandidateController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request ,EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function edit(int $id, Request $request ,EntityManagerInterface $entityManager, FileHandlerInterface $fileHandler): Response
     {
         $candidate = $entityManager->getRepository(Candidate::class)->findOneBy(['User' => $id]);
 
@@ -60,16 +60,16 @@ final class CandidateController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($candidate);
-            $passportFile = $form->get('file_passport')->getData();
-            // dd($passportFile);
 
-            if($passportFile){
-                // add the file to the folder 'passport' & remove the old file & return the file name
-                $passportFileName = $fileUploader->upload($passportFile, $candidate, 'passport', 'passport');
-                // set property of candidate
-                $candidate->setFilePassport($passportFileName);
-            }
+            // the input files who's need to be checked
+            $files = [
+                // 'profilPicture' => $form->get('file_pp')->getData(),
+                'passport' => $form->get('file_passport')->getData(),
+                // 'cv' => $form->get('file_cv')->getData(),
+            ];
+            // get files, for each file, then set Candidate property with the new file name
+            $fileHandler->handleFiles($candidate, $files);
+
 
             $entityManager->persist($candidate);
             $entityManager->flush();
@@ -93,4 +93,9 @@ final class CandidateController extends AbstractController
 
         return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    // private function getOriginalFilename(?string $filename): ?string
+    // {
+    //     return $filename ? preg_replace('/-\w{13}(?=\.\w{3,4}$)/', '', $filename) : null;
+    // }
 }

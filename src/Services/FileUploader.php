@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Services;
 
 use Exception;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -14,7 +14,7 @@ class FileUploader
 
     }
 
-    public function upload(UploadedFile $file, object $entity, string $fieldName, string $folder): string
+    public function upload(UploadedFile $file, Object $entity, string $fieldName, string $folder): string
     {
         // get the original file name without the extension
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -44,7 +44,7 @@ class FileUploader
         return $this->targetDirectory;
     }
 
-    private function removeOldFile(object $entity, string $fieldName, string $folder): void
+    private function removeOldFile(Object $entity, string $fieldName, string $folder): void
     {
         // make getter method with the field name
         $getter = 'get'. 'File' . ucfirst($fieldName);
