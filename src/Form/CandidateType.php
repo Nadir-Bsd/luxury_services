@@ -108,7 +108,25 @@ class CandidateType extends AbstractType
                     // 'required' => true,
                 ],
             ])
-            // ->add('file_cv')
+            ->add('file_cv', FileType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '20M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF, JPG, DOC, DOCX, PNG, or GIF document',
+                    ]),
+                ],
+                'attr' => [
+                    'accept' => '.jpg,.jpeg,.png,.gif',
+                    'id' => 'cv',
+                    // 'required' => true,
+                ],
+            ])
             // ->add('file_pp')
             ->add('location', TextType::class, [
                 'attr' => [
@@ -135,6 +153,8 @@ class CandidateType extends AbstractType
                 'attr' => [
                     'class' => "materialize-textarea",  
                     'id' => 'description',
+                    'col' => '50',
+                    'row' => '10',
                 ],
                 'label' => 'Description',
             ])

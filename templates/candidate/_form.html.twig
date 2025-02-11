@@ -119,7 +119,7 @@
                 <div class="col-xs-12 col-sm-6">
                     <div class="card card-panel passport">
 
-                    {# passport  not finish #}
+                    {# passport #}
                         <div class="file-field input-field">
 
                             {# the true input #}
@@ -149,24 +149,27 @@
                     {# CV  not finish #}
                         <div class="file-field input-field">
 
-                            {# <div class="btn btn-lg primary waves-effect waves-light">
+                            {# the true input #}
+                            <div class="btn btn-lg primary waves-effect waves-light">
                                 <span>
                                     <i class="material-icons">&#xE24D;</i>
                                     CV
                                 </span>
-                                <input id="cv" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="cv" type="file">
-                            </div> #}
+                                {{ form_widget(form.file_cv) }}
+                            </div>
 
-                            {# <div class="existing-file">
+                            {# if un file est deja en DB affiche le name #}
+                            <div class="existing-file">
                                 <a href="#!" target="_blank">
                                     <i class="material-icons">&#xE24D;</i>
                                     CV.pdf
                                 </a>
-                            </div> #}
+                            </div>
 
-                            {# <div class="file-path-wrapper">
+                            {# affiche le file name #}
+                            <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text" placeholder="Upload your Curriculum Vitae" readonly>
-                            </div> #}
+                            </div>
                         </div>
                     </div>
                 </div>

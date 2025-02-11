@@ -65,7 +65,7 @@ final class CandidateController extends AbstractController
             $files = [
                 // 'profilPicture' => $form->get('file_pp')->getData(),
                 'passport' => $form->get('file_passport')->getData(),
-                // 'cv' => $form->get('file_cv')->getData(),
+                'cv' => $form->get('file_cv')->getData(),
             ];
             // get files, for each file, then set Candidate property with the new file name
             $fileHandler->handleFiles($candidate, $files);
