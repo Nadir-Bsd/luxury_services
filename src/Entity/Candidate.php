@@ -67,6 +67,7 @@ class Candidate
     private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\Column(nullable: true)]
+    // affaire
     private ?\DateTimeImmutable $deleted_at = null;
 
     #[ORM\OneToOne(inversedBy: 'Candidate', cascade: ['persist', 'remove'])]

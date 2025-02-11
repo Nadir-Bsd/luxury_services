@@ -84,7 +84,6 @@ class CandidateType extends AbstractType
                     'id' => 'job_sector',
                 ],
             ])
-            // ->add('isPassport')
             ->add('file_passport', FileType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -169,7 +168,6 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'Birth Place',
             ])
-            // ->add('isAvailable')
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => "materialize-textarea",  
@@ -179,6 +177,7 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'Description',
             ])
+
             ->addEventListener(FormEvents::POST_SUBMIT, $this->setUpdateAt(...))
         ;
     }
