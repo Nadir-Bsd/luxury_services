@@ -117,17 +117,38 @@ class CandidateType extends AbstractType
                             'image/jpeg',
                             'image/png',
                             'image/gif',
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PDF, JPG, DOC, DOCX, PNG, or GIF document',
                     ]),
                 ],
                 'attr' => [
-                    'accept' => '.jpg,.jpeg,.png,.gif',
+                    'accept' => '.pdf,.jpg,.doc,.docx,.png,.jpeg',
                     'id' => 'cv',
                     // 'required' => true,
                 ],
             ])
-            // ->add('file_pp')
+            ->add('file_pp', FileType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '20M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF, JPG, DOC, DOCX, PNG, or GIF document',
+                    ]),
+                ],
+                'attr' => [
+                    'accept' => '.pdf,.jpg,.doc,.docx,.png,.gif',
+                    'id' => 'photo',
+                    // 'required' => true,
+                ],
+            ])
             ->add('location', TextType::class, [
                 'attr' => [
                     'id' => 'current_location',

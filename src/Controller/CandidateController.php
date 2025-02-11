@@ -63,7 +63,7 @@ final class CandidateController extends AbstractController
 
             // the input files who's need to be checked
             $files = [
-                // 'profilPicture' => $form->get('file_pp')->getData(),
+                'pp' => $form->get('file_pp')->getData(),
                 'passport' => $form->get('file_passport')->getData(),
                 'cv' => $form->get('file_cv')->getData(),
             ];
