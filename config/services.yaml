@@ -29,3 +29,6 @@ services:
     
     App\Services\FileHandler:
         tags: ["app.file_handler"]
+        
+    App\Services\PasswordUpdater:
+        tags: ["app.password_updater"]

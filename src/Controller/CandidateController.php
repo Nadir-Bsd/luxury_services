@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Candidate;
+use App\Entity\User;
 use App\Form\CandidateType;
+use App\Form\ChangePasswordType;
 use App\Interfaces\FileHandlerInterface;
+use App\Interfaces\PasswordUpdaterInterface;
 use App\Repository\CandidateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,69 +15,51 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/candidate')]
+#[Route('/profile')]
 final class CandidateController extends AbstractController
 {
-    #[Route(name: 'app_candidate', methods: ['GET'])]
-    public function index(CandidateRepository $candidateRepository): Response
+    #[Route('/', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request ,EntityManagerInterface $entityManager, FileHandlerInterface $fileHandler, PasswordUpdaterInterface $passwordUpdater): Response
     {
-        return $this->render('candidate/index.html.twig', [
-            'candidates' => $candidateRepository->findAll(),
-        ]);
-    }
 
-    #[Route('/new', name: 'app_candidate_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $candidate = new Candidate();
-        $form = $this->createForm(CandidateType::class, $candidate);
-        $form->handleRequest($request);
+        /** @var User */
+        $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($candidate);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('candidate/new.html.twig', [
-            'candidate' => $candidate,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_candidate_show', methods: ['GET'])]
-    public function show(Candidate $candidate): Response
-    {
-        return $this->render('candidate/show.html.twig', [
-            'candidate' => $candidate,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request ,EntityManagerInterface $entityManager, FileHandlerInterface $fileHandler): Response
-    {
-        $candidate = $entityManager->getRepository(Candidate::class)->findOneBy(['User' => $id]);
+        $candidate = $user->getCandidate();
 
         $form = $this->createForm(CandidateType::class, $candidate);
         $form->handleRequest($request);
-        
+                
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             // the input files who's need to be checked
             $files = [
                 'pp' => $form->get('file_pp')->getData(),
                 'passport' => $form->get('file_passport')->getData(),
                 'cv' => $form->get('file_cv')->getData(),
             ];
+
             // get files, for each file, then set Candidate property with the new file name
             $fileHandler->handleFiles($candidate, $files);
+            
+            // get data
+            $email = $form->get('email')->getData();
+            $newPassword = $form->get('newPassword')->getData();
 
+            // check the data
+            if ($email && $newPassword) 
+            {
+                $passwordUpdater->updatePassword($candidate->getUser(), $email, $newPassword);
+            } elseif ($email || $newPassword) {
+                $this->addFlash('error', 'Please fill in both email and password fields');
+            }
 
             $entityManager->persist($candidate);
             $entityManager->flush();
 
             $this->addFlash('success', 'Candidate updated successfully!');
+
+            return $this->redirectToRoute('app_candidate_edit');
         }
 
         return $this->render('candidate/index.html.twig', [

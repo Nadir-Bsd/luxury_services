@@ -6,11 +6,15 @@ use App\Entity\Candidate;
 use App\Entity\Category;
 use App\Entity\Experience;
 use App\Entity\Gender;
+use App\Entity\User;
 use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +22,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
 
 class CandidateType extends AbstractType
 {
@@ -86,6 +91,7 @@ class CandidateType extends AbstractType
             ])
             ->add('file_passport', FileType::class, [
                 'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '20M',
@@ -109,6 +115,7 @@ class CandidateType extends AbstractType
             ])
             ->add('file_cv', FileType::class, [
                 'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '20M',
@@ -131,6 +138,7 @@ class CandidateType extends AbstractType
             ])
             ->add('file_pp', FileType::class, [
                 'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '20M',
@@ -177,7 +185,45 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'Description',
             ])
-
+            ->add('newPassword', RepeatedType::class, [
+                'mapped' => false,
+                'required' => false,
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => 'New Password',
+                    'attr' => [
+                        'class' => 'form-control',
+                        'id' => 'password',
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'Confirm New Password',
+                    'attr' => [
+                        'class' => 'form-control',
+                        'id' => 'password_repeat',
+                    ],
+                ],
+                'invalid_message' => 'The password fields must match.',
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'max' => 4096,
+                    ]),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'email',
+                ],
+                'label' => 'Email',
+            ])
+            // ->add('User', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'email',
+            // ])
             ->addEventListener(FormEvents::POST_SUBMIT, $this->setUpdateAt(...))
         ;
     }

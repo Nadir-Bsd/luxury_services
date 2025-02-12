@@ -102,7 +102,7 @@ $(handler);
 							{% if app.user %}
 								<div class="icon-wrapper">
 									<span class="account">
-										<a href="{{ path('app_candidate') }}">
+										<a href="{{ path('app_candidate_edit', {id: app.user.id}) }}">
 											<i class="material-icons">&#xE7FD;</i>
 										</a>
 									</span>
@@ -127,7 +127,7 @@ $(handler);
 
 											<li>-</li>
 											<li>
-												<a href="{{ path('app_candidate_edit', {id: app.user.id}) }}">Profile</a>
+												<a href="{{ path('app_candidate_edit') }}">Profile</a>
 											</li>
 											<li>
 												<a href="{{ path('app_logout') }}">Logout</a>
@@ -162,7 +162,7 @@ $(handler);
 							{% else %}
 								<ul class="menuzord-menu pull-right light" role="navigation">
 									<li class=" dropdown">
-										<a target="_self" href="{{ path('app_candidate_edit', {id: app.user.id}) }}">
+										<a target="_self" href="{{ path('app_candidate_edit') }}">
 											<span>Profile</span>
 										</a>
 									</li>
@@ -208,6 +208,7 @@ $(handler);
 		<div class="base">
 			<!-- Page -->
 			<div class="page">
+				{% include "partials/flash.html.twig" %}
 				{% block body %}{% endblock %}
 			</div>
 		</div>
