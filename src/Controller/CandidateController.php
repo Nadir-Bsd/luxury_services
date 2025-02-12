@@ -79,7 +79,10 @@ final class CandidateController extends AbstractController
 
         return $this->render('candidate/index.html.twig', [
             'candidate' => $candidate,
-            'form' => $form,
+            'form' => $form,            
+            'OriginalfilePassportName' => $this->getOriginalFilename($candidate->getFilePassport()),
+            'OriginalfileCvName' => $this->getOriginalFilename($candidate->getFileCv()),
+            'OriginalfilePpName' => $this->getOriginalFilename($candidate->getFilePp()),
         ]);
     }
 
@@ -94,8 +97,8 @@ final class CandidateController extends AbstractController
         return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    // private function getOriginalFilename(?string $filename): ?string
-    // {
-    //     return $filename ? preg_replace('/-\w{13}(?=\.\w{3,4}$)/', '', $filename) : null;
-    // }
+    private function getOriginalFilename(?string $filename): ?string
+    {
+        return $filename ? preg_replace('/-\w{13}(?=\.\w{3,4}$)/', '', $filename) : null;
+    }
 }
