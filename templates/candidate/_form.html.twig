@@ -47,6 +47,7 @@
             </div>
 
             <div class="row">
+            
                 {# profile picture #}
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="file-field input-field" style="margin-top: 32px;">
@@ -61,19 +62,18 @@
                         </div>
 
                         {# if un file est deja en DB affiche le name #}
-                        {% if OriginalfilePpName %}
-                            <div class="existing-file">
-                                <a href="#!" target="_blank">
-                                    <i class="material-icons">&#xE24D;</i>
-                                    {{ OriginalfilePpName }}
-                                </a>
-                            </div>
-                        {% else %}
-                            {# affiche le file name #}
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Upload your ID photo" readonly>
-                            </div>
-                        {% endif %}
+                        <div class="existing-file">
+                            <a href="#!" target="_blank">
+                                <i class="material-icons">&#xE24D;</i>
+                                {{ OriginalfilePpName }}
+                            </a>
+                        </div>
+                        
+                        {# affiche le file name #}
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Upload your ID photo" readonly>
+                        </div>
+
                     </div>
                 </div>
 
@@ -116,71 +116,62 @@
                 </div>
             </div>
 
-            {# CV #}
-            {# passport #}
             <div class="row mt-40">
-                <h3 class="text-extrabold">Your professional profile</h3>
-                <div class="col-xs-12 col-sm-6">
-                    <div class="card card-panel passport">
+				<h3 class="text-extrabold">Your professional profile</h3>
+				<div class="col-xs-12 col-sm-6">
 
-                    {# passport #}
-                        <div class="file-field input-field">
+					<div class="card card-panel passport">
 
-                            {# the true input #}
-                            <div class="btn btn-lg primary waves-effect waves-light">
-                                <span>
-                                    <i class="material-icons">&#xE24D;</i>
-                                    Passport
-                                </span>
-                                {{ form_widget(form.file_passport) }}
-                            </div>
+						{# Passport #}
+						<div class="file-field input-field">
+							<div class="btn btn-lg primary waves-effect waves-light">
+								<span>
+									<i class="material-icons">&#xE24D;</i>
+									Passport
+								</span>								
+								{{ form_widget(form.file_passport) }}
+							</div>
 
-                            {# if un file est deja en DB affiche le name #}
-                            {% if OriginalfilePassportName %}
-                                <div class="existing-file">
-                                    <a href="#!" target="_blank">
-                                        <i class="material-icons">&#xE24D;</i>
-                                        {{ OriginalfilePassportName }}
-                                    </a>
-                                </div>
-                            {% else %}
-                                {# affiche le file name #}
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text" placeholder="Upload your passport" readonly>
-                                </div>
-                            {% endif %}
-                        </div>
+							{% if candidate.getFilePassport() %}
+							<div id="existing-file-passport" class="existing-file">
+								<a href="#!" target="_blank">
+									<i class="material-icons">&#xE24D;</i>
+									{{ OriginalfilePassportName }}
+								</a>
+							</div>
+							{% endif %}
 
-                        {# CV #}
-                        <div class="file-field input-field">
+							<div class="file-path-wrapper">
+								<input id="file-path-passport" class="file-path validate" type="text" placeholder="Upload your passport" readonly>
+							</div>
+						</div>
 
-                            {# the true input #}
-                            <div class="btn btn-lg primary waves-effect waves-light">
-                                <span>
-                                    <i class="material-icons">&#xE24D;</i>
-                                    CV
-                                </span>
-                                {{ form_widget(form.file_cv) }}
-                            </div>
+						{# CV #}
+						<div class="file-field input-field">
+							<div class="btn btn-lg primary waves-effect waves-light">
+								<span>
+									<i class="material-icons">&#xE24D;</i>
+									CV
+								</span>
+								{{ form_widget(form.file_cv) }}
+							</div>
 
-                            {# if un file est deja en DB affiche le name #}
-                            {% if OriginalfileCvName %}
-                                <div class="existing-file">
-                                    <a href="#!" target="_blank">
-                                        <i class="material-icons">&#xE24D;</i>
-                                        {{ OriginalfileCvName }}
-                                    </a>
-                                </div>
-                            {% else %}
-                                {# affiche le file name #}
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text" placeholder="<---- Upload your Curriculum Vitae" readonly>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+							{% if candidate.getFileCv() %}
+							<div id="existing-file-cv" class="existing-file">
+								<a href="#!" target="_blank">
+									<i class="material-icons">&#xE24D;</i>
+									{{ OriginalfileCvName }}
+								</a>
+							</div>
+							{% endif %}
+
+							<div class="file-path-wrapper">
+								<input id="file-path-cv" class="file-path validate" type="text" placeholder="Upload your Curriculum Vitae" readonly>
+							</div>
+						</div>
+
+					</div>
+				</div>
 
             {# experience #}
             {# job category #}
