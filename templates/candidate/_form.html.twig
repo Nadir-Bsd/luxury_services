@@ -47,7 +47,7 @@
             </div>
 
             <div class="row">
-            
+
                 {# profile picture #}
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="file-field input-field" style="margin-top: 32px;">
@@ -134,7 +134,7 @@
 
 							{% if candidate.getFilePassport() %}
 							<div id="existing-file-passport" class="existing-file">
-								<a href="#!" target="_blank">
+								<a href="{{ asset('uploads/passport/' ~ candidate.getFilePassport()) }}" target="_blank">
 									<i class="material-icons">&#xE24D;</i>
 									{{ OriginalfilePassportName }}
 								</a>
@@ -158,7 +158,7 @@
 
 							{% if candidate.getFileCv() %}
 							<div id="existing-file-cv" class="existing-file">
-								<a href="#!" target="_blank">
+								<a href="{{ asset('uploads/curriculum-vitae/' ~ candidate.getFileCv()) }}" target="_blank">
 									<i class="material-icons">&#xE24D;</i>
 									{{ OriginalfileCvName }}
 								</a>
