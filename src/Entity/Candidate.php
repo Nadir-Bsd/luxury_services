@@ -303,9 +303,9 @@ class Candidate
         return $this->deleted_at;
     }
 
-    public function setDeletedAt(?\DateTimeImmutable $deleted_at): static
+    public function setDeletedAt(): static
     {
-        $this->deleted_at = $deleted_at;
+        $this->deleted_at = new DateTimeImmutable();
 
         return $this;
     }

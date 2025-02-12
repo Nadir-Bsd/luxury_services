@@ -23,7 +23,6 @@ final class CandidateController extends AbstractController
     {
 
         /** @var User */
-        // comment il sais que c'est le bon user ?
         $user = $this->getUser();
 
         /** @var Candidate */
@@ -73,15 +72,36 @@ final class CandidateController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_candidate_delete', methods: ['POST'])]
-    public function delete(Request $request, Candidate $candidate, EntityManagerInterface $entityManager): Response
+    #[Route('/delete', name: 'app_candidate_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        /** @var User */
+        $user = $this->getUser();
+
+        /** @var Candidate */
+        $candidate = $user->getCandidate();
+
+        // probleme with the csrf token !!!!!!!
         if ($this->isCsrfTokenValid('delete'.$candidate->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($candidate);
+
+            // add immutable file to delete for the candidate 
+            $candidate->setDeletedAt();
+
+            // set user role has DELETED
+            $user->setRoles(['DELETED']);
+
+            // to say that entity has been modified and will be updated in the database
+            $entityManager->persist($candidate);
+            $entityManager->persist($user);
+
             $entityManager->flush();
+
+            $this->addFlash('success', 'Candidate deleted successfully!');
+            return $this->redirectToRoute('app_logout');
         }
 
-        return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
     }
 
     private function getOriginalFilename(?string $filename): ?string
