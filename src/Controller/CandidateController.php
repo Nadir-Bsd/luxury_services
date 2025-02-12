@@ -23,8 +23,10 @@ final class CandidateController extends AbstractController
     {
 
         /** @var User */
+        // comment il sais que c'est le bon user ?
         $user = $this->getUser();
 
+        /** @var Candidate */
         $candidate = $user->getCandidate();
 
         $form = $this->createForm(CandidateType::class, $candidate);

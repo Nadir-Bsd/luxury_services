@@ -220,10 +220,6 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'Email',
             ])
-            // ->add('User', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'email',
-            // ])
             ->addEventListener(FormEvents::POST_SUBMIT, $this->setUpdateAt(...))
         ;
     }
