@@ -5,10 +5,8 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Entity\User;
 use App\Form\CandidateType;
-use App\Form\ChangePasswordType;
 use App\Interfaces\FileHandlerInterface;
 use App\Interfaces\PasswordUpdaterInterface;
-use App\Repository\CandidateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CandidateController extends AbstractController
 {
     #[Route('/', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request ,EntityManagerInterface $entityManager, FileHandlerInterface $fileHandler, PasswordUpdaterInterface $passwordUpdater): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, FileHandlerInterface $fileHandler, PasswordUpdaterInterface $passwordUpdater): Response
     {
 
         /** @var User */
@@ -30,9 +28,9 @@ final class CandidateController extends AbstractController
 
         $form = $this->createForm(CandidateType::class, $candidate);
         $form->handleRequest($request);
-                
+
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             // the input files who's need to be checked
             $files = [
                 'pp' => $form->get('file_pp')->getData(),
@@ -42,14 +40,13 @@ final class CandidateController extends AbstractController
 
             // get files, for each file, then set Candidate property with the new file name
             $fileHandler->handleFiles($candidate, $files);
-            
+
             // get data
             $email = $form->get('email')->getData();
             $newPassword = $form->get('newPassword')->getData();
 
             // check the data
-            if ($email && $newPassword) 
-            {
+            if ($email && $newPassword) {
                 $passwordUpdater->updatePassword($candidate->getUser(), $email, $newPassword);
             } elseif ($email || $newPassword) {
                 $this->addFlash('error', 'Please fill in both email and password fields');
@@ -65,7 +62,7 @@ final class CandidateController extends AbstractController
 
         return $this->render('candidate/index.html.twig', [
             'candidate' => $candidate,
-            'form' => $form,            
+            'form' => $form,
             'OriginalfilePassportName' => $this->getOriginalFilename($candidate->getFilePassport()),
             'OriginalfileCvName' => $this->getOriginalFilename($candidate->getFileCv()),
             'OriginalfilePpName' => $this->getOriginalFilename($candidate->getFilePp()),
@@ -73,35 +70,28 @@ final class CandidateController extends AbstractController
     }
 
     #[Route('/delete', name: 'app_candidate_delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, EntityManagerInterface $entityManager): Response
+    public function delete(EntityManagerInterface $entityManager): Response
     {
-
         /** @var User */
         $user = $this->getUser();
 
         /** @var Candidate */
         $candidate = $user->getCandidate();
 
-        // probleme with the csrf token !!!!!!!
-        if ($this->isCsrfTokenValid('delete'.$candidate->getId(), $request->getPayload()->getString('_token'))) {
+        // add immutable file to delete for the candidate 
+        $candidate->setDeletedAt();
 
-            // add immutable file to delete for the candidate 
-            $candidate->setDeletedAt();
+        // set user role has DELETED
+        $user->setRoles(['DELETED']);
 
-            // set user role has DELETED
-            $user->setRoles(['DELETED']);
+        // to say that entity has been modified and will be updated in the database
+        $entityManager->persist($candidate);
+        $entityManager->persist($user);
 
-            // to say that entity has been modified and will be updated in the database
-            $entityManager->persist($candidate);
-            $entityManager->persist($user);
+        $entityManager->flush();
 
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Candidate deleted successfully!');
-            return $this->redirectToRoute('app_logout');
-        }
-
-        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        $this->addFlash('success', 'Candidate deleted successfully!');
+        return $this->redirectToRoute('app_logout');
     }
 
     private function getOriginalFilename(?string $filename): ?string
