@@ -12,8 +12,11 @@ final class JobController extends AbstractController
     public function index(): Response
     {
         return $this->render('job/index.html.twig', [
+            // send array of data for job cards
         ]);
     }
+
+
 
     #[Route('/job/{slug}', name: 'app_job_show')]
     public function show(): Response
