@@ -14,7 +14,6 @@ final class JobController extends AbstractController
     {
         // get all jobs from database
         $jobs = $jobRepo->findAll();
-        // dd($jobs);
 
         return $this->render('job/index.html.twig', [
             // send array of data for job cards
