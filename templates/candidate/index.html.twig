@@ -39,13 +39,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="score-container">
-				{# {% if n est a 100 print that  %} #}
+				{% if n == 100  %}
 					<h4>
 						<img src="{{ asset('img/s9bPVaK.gif') }}" style="height: 80px; width: 201px;">
 						 &nbsp; Hooray ! Your profile is complete.
 					</h4>
-				{# {% endif %} #}
-				{# change the p with the n #}
+				{% endif %}
 					<div class="c100 p{{ n }} small complete ">
 						<span>{{ n }}%</span>
 						<div class="slice">
