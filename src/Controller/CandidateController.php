@@ -26,15 +26,14 @@ final class CandidateController extends AbstractController
         ProfileProgressCalculatorInterface $calculateProgress,
     ): Response
     {
-
         /** @var User */
         $user = $this->getUser();
 
         /** @var Candidate */
         $candidate = $user->getCandidate();
 
-        // calculate the progress of the profile
-        $n = $calculateProgress->calculateProgress($candidate);
+        // get the property of progress in the Candidate
+        $n = $candidate->getCompletionPercentage();
 
         $form = $this->createForm(CandidateType::class, $candidate);
         $form->handleRequest($request);
@@ -64,6 +63,7 @@ final class CandidateController extends AbstractController
             }
 
             // calculate the progress of the profile push it the result in dataBase
+            $n = $calculateProgress->calculateProgress($candidate);
 
             $entityManager->persist($candidate);
             $entityManager->flush();

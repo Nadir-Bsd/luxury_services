@@ -6,7 +6,6 @@ use App\Entity\Candidate;
 use App\Entity\Category;
 use App\Entity\Experience;
 use App\Entity\Gender;
-use App\Entity\User;
 use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -33,7 +32,7 @@ class CandidateType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'id' => 'first_name',
-                    // 'required' => true,
+                    'required' => false,
                 ],
                 'label' => 'First Name',
             ])
@@ -41,7 +40,7 @@ class CandidateType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'id' => 'last_name',
-                    // 'required' => true,
+                    'required' => false,
                 ],
                 'label' => 'Last Name',
             ])
@@ -54,14 +53,14 @@ class CandidateType extends AbstractType
             ->add('country', TextType::class, [
                 'attr' => [
                     'id' => 'country',
-                    // 'required' => true,
+                    'required' => false,
                 ],
                 'label' => 'Country',
             ])
             ->add('nationality', TextType::class, [
                 'attr' => [
                     'id' => 'nationality',
-                    // 'required' => true,
+                    'required' => false,
                 ],
                 'label' => 'Nationality',
             ])
@@ -70,7 +69,7 @@ class CandidateType extends AbstractType
                 'label' => 'Gender',
                 'attr' => [
                     'id' => 'gender',
-                    // 'required' => true,
+                    'required' => false,
                 ],
             ])
             ->add('experience', EntityType::class, [
@@ -78,7 +77,7 @@ class CandidateType extends AbstractType
                 'label' => 'Experience',
                 'attr' => [
                     'id' => 'experience',
-                    // 'required' => true,
+                    'required' => false,
                 ],
             ])
             ->add('category', EntityType::class, [
@@ -110,7 +109,7 @@ class CandidateType extends AbstractType
                 'attr' => [
                     'accept' => '.pdf,.jpg,.doc,.docx,.png,.gif',
                     'id' => 'passport',
-                    // 'required' => true,
+                    'required' => false,
                 ],
             ])
             ->add('file_cv', FileType::class, [
@@ -133,7 +132,7 @@ class CandidateType extends AbstractType
                 'attr' => [
                     'accept' => '.pdf,.jpg,.doc,.docx,.png,.jpeg',
                     'id' => 'cv',
-                    // 'required' => true,
+                    'required' => false,
                 ],
             ])
             ->add('file_pp', FileType::class, [
@@ -153,13 +152,13 @@ class CandidateType extends AbstractType
                 'attr' => [
                     'accept' => '.pdf,.jpg,.doc,.docx,.png,.gif',
                     'id' => 'photo',
-                    // 'required' => true,
+                    'required' => false,
                 ],
             ])
             ->add('location', TextType::class, [
                 'attr' => [
                     'id' => 'current_location',
-                    // 'required' => true,
+                    'required' => false,
                 ],
                 'label' => 'Location',
             ])

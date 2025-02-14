@@ -41,15 +41,15 @@ class Candidate
 
     #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $file_passport = null;
+    private ?string $filePassport = null;
 
     #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $file_cv = null;
+    private ?string $fileCv = null;
 
     #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $file_pp = null;
+    private ?string $filePp = null;
 
     #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
@@ -57,11 +57,11 @@ class Candidate
 
     #[ProfileField]
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $birth_date = null;
+    private ?\DateTimeImmutable $birthDate = null;
 
     #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $birth_location = null;
+    private ?string $birthLocation = null;
 
     #[ORM\Column]
     private ?bool $isAvailable = false;
@@ -73,14 +73,14 @@ class Candidate
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $deleted_at = null;
+    private ?\DateTimeImmutable $deletedAt = null;
 
     #[ORM\OneToOne(inversedBy: 'Candidate', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -103,8 +103,8 @@ class Candidate
 
     public function __construct()
     {
-        $this->created_at = new DateTimeImmutable();
-        $this->updated_at = new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -186,36 +186,36 @@ class Candidate
 
     public function getFilePassport(): ?string
     {
-        return $this->file_passport;
+        return $this->filePassport;
     }
 
-    public function setFilePassport(?string $file_passport): static
+    public function setFilePassport(?string $filePassport): static
     {
-        $this->file_passport = $file_passport;
+        $this->filePassport = $filePassport;
 
         return $this;
     }
 
     public function getFileCv(): ?string
     {
-        return $this->file_cv;
+        return $this->fileCv;
     }
 
-    public function setFileCv(?string $file_cv): static
+    public function setFileCv(?string $fileCv): static
     {
-        $this->file_cv = $file_cv;
+        $this->fileCv = $fileCv;
 
         return $this;
     }
 
     public function getFilePp(): ?string
     {
-        return $this->file_pp;
+        return $this->filePp;
     }
 
-    public function setFilePp(?string $file_pp): static
+    public function setFilePp(?string $filePp): static
     {
-        $this->file_pp = $file_pp;
+        $this->filePp = $filePp;
 
         return $this;
     }
@@ -234,24 +234,24 @@ class Candidate
 
     public function getBirthDate(): ?\DateTimeImmutable
     {
-        return $this->birth_date;
+        return $this->birthDate;
     }
 
-    public function setBirthDate(?\DateTimeImmutable $birth_date): static
+    public function setBirthDate(?\DateTimeImmutable $birthDate): static
     {
-        $this->birth_date = $birth_date;
+        $this->birthDate = $birthDate;
 
         return $this;
     }
 
     public function getBirthLocation(): ?string
     {
-        return $this->birth_location;
+        return $this->birthLocation;
     }
 
-    public function setBirthLocation(?string $birth_location): static
+    public function setBirthLocation(?string $birthLocation): static
     {
-        $this->birth_location = $birth_location;
+        $this->birthLocation = $birthLocation;
 
         return $this;
     }
@@ -294,36 +294,36 @@ class Candidate
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     public function getDeletedAt(): ?\DateTimeImmutable
     {
-        return $this->deleted_at;
+        return $this->deletedAt;
     }
 
     public function setDeletedAt(): static
     {
-        $this->deleted_at = new DateTimeImmutable();
+        $this->deletedAt = new DateTimeImmutable();
 
         return $this;
     }
