@@ -214,6 +214,7 @@ class CandidateType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'mapped' => false,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'id' => 'email',

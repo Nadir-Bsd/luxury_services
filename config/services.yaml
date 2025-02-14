@@ -32,6 +32,9 @@ services:
         
     App\Services\PasswordUpdater:
         tags: ["app.password_updater"]
+
+    App\Services\ProgressProfile:
+        tags: ["app.progress_profile"]
     
     App\EventListener\LoginListener:
         tags: 

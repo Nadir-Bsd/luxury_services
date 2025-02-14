@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Attribute\ProfileField;
 use App\Repository\CandidateRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
@@ -15,45 +16,57 @@ class Candidate
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastname = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adress = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $country = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nationality = null;
 
     #[ORM\Column]
     private ?bool $isPassport = false;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_passport = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_cv = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_pp = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $location = null;
 
+    #[ProfileField]
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $birth_date = null;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $birth_location = null;
 
     #[ORM\Column]
     private ?bool $isAvailable = false;
 
+    #[ProfileField]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
@@ -67,21 +80,26 @@ class Candidate
     private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\Column(nullable: true)]
-    // affaire
     private ?\DateTimeImmutable $deleted_at = null;
 
     #[ORM\OneToOne(inversedBy: 'Candidate', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $User = null;
 
+    #[ProfileField]
     #[ORM\ManyToOne(inversedBy: 'Candidate')]
     private ?Gender $Gender = null;
 
+    #[ProfileField]
     #[ORM\ManyToOne(inversedBy: 'Candidate')]
     private ?Experience $Experience = null;
 
+    #[ProfileField]
     #[ORM\ManyToOne(inversedBy: 'Candidate')]
     private ?Category $Category = null;
+
+    #[ORM\Column(type: Types::INTEGER, options: ['default' => 0])]
+    private int $CompletionPercentage = 0;
 
     public function __construct()
     {
@@ -354,6 +372,18 @@ class Candidate
     public function setCategory(?Category $Category): static
     {
         $this->Category = $Category;
+
+        return $this;
+    }
+
+    public function getCompletionPercentage(): ?int
+    {
+        return $this->CompletionPercentage;
+    }
+
+    public function setCompletionPercentage(int $CompletionPercentage): static
+    {
+        $this->CompletionPercentage = $CompletionPercentage;
 
         return $this;
     }
