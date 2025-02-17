@@ -24,9 +24,12 @@ final class JobController extends AbstractController
 
 
     #[Route('/job/{slug}', name: 'app_job_show')]
-    public function show(): Response
+    public function show(String $slug, JobRepository $jobRepo): Response
     {
+        $job = $jobRepo->findOneBy(['slug' => $slug]);
+
         return $this->render('job/show.html.twig', [
+            'job' => $job,
         ]);
     }
 }
