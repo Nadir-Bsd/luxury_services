@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\JobRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,14 +11,17 @@ use Symfony\Component\Routing\Attribute\Route;
 final class JobController extends AbstractController
 {
     #[Route('/job', name: 'app_job')]
-    public function index(JobRepository $jobRepo): Response
+    public function index(JobRepository $jobRepo, CategoryRepository $categoryRepo): Response
     {
-        // get all jobs from database
+        // get all jobs from database 
         $jobs = $jobRepo->findAll();
+        // get categories passing through the jobs
+        $categories = $categoryRepo->findAll();
 
         return $this->render('job/index.html.twig', [
             // send array of data for job cards
             'jobs' => $jobs,
+            'categories' => $categories,
         ]);
     }
 
