@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Contract;
+use App\Entity\Job;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -28,6 +30,12 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
+        // if $this->getUser get roles and print only things that are allowed
+        $user = $this->getUser();
+
+        // ajoute un lien vers un CRUD des jobs
+        yield MenuItem::linkToCrud('The Jobs Offer', 'fas fa-list',  Job::class);
+        yield MenuItem::linkToCrud('Contract Type', 'fas fa-list',  Contract::class);
     }
 }
