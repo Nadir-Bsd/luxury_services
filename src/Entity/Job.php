@@ -52,6 +52,9 @@ class Job
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $Category = null;
 
+    #[ORM\ManyToOne(inversedBy: 'jobs')]
+    private ?Contract $contract = null;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -202,6 +205,18 @@ class Job
     public function setCategory(?Category $Category): static
     {
         $this->Category = $Category;
+
+        return $this;
+    }
+
+    public function getContract(): ?Contract
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?Contract $contract): static
+    {
+        $this->contract = $contract;
 
         return $this;
     }
