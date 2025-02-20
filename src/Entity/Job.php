@@ -48,6 +48,10 @@ class Job
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $startingDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'jobs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $Category = null;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -186,6 +190,18 @@ class Job
     public function setStartingDate(?\DateTimeInterface $startingDate): static
     {
         $this->startingDate = $startingDate;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): static
+    {
+        $this->Category = $Category;
 
         return $this;
     }
