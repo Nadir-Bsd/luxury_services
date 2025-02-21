@@ -52,7 +52,7 @@ class Job
 
     #[ORM\ManyToOne(inversedBy: 'jobs')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $Category = null;
+    private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'jobs')]
     private ?Contract $contract = null;
@@ -67,6 +67,11 @@ class Job
     {
         $this->createdAt = new DateTimeImmutable();
         $this->candidacies = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->jobTitle;
     }
 
     public function getId(): ?int
@@ -208,12 +213,12 @@ class Job
 
     public function getCategory(): ?Category
     {
-        return $this->Category;
+        return $this->category;
     }
 
     public function setCategory(?Category $Category): static
     {
-        $this->Category = $Category;
+        $this->category = $Category;
 
         return $this;
     }

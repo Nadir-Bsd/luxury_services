@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CandidacyRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CandidacyRepository::class)]
@@ -16,7 +17,7 @@ class Candidacy
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'candidacies')]
@@ -24,6 +25,11 @@ class Candidacy
 
     #[ORM\ManyToOne(inversedBy: 'candidacies')]
     private ?Candidate $candidate = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -47,9 +53,9 @@ class Candidacy
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(\DateTimeImmutable $deletedAt): static
+    public function setDeletedAt(): static
     {
-        $this->deletedAt = $deletedAt;
+        $this->deletedAt = new DateTimeImmutable();
 
         return $this;
     }
