@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Contract;
 use App\Entity\Job;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
@@ -37,5 +38,6 @@ class DashboardController extends AbstractDashboardController
         // ajoute un lien vers un CRUD des jobs
         yield MenuItem::linkToCrud('The Jobs Offer', 'fas fa-briefcase',  Job::class);
         yield MenuItem::linkToCrud('Contract Type', 'fas fa-file-signature',  Contract::class);
+        yield MenuItem::linkToCrud('Category', 'fas fa-list',  Category::class);
     }
 }
