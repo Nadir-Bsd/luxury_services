@@ -7,6 +7,7 @@ use App\Entity\Contract;
 use App\Entity\Experience;
 use App\Entity\Gender;
 use App\Entity\Job;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -43,5 +44,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Category', 'fas fa-list',  Category::class);
         yield MenuItem::linkToCrud('Experience', 'fas fa-business-time',  Experience::class);
         yield MenuItem::linkToCrud('Gender', 'fas fa-venus-mars',  Gender::class);
+        yield MenuItem::linkToCrud('Users', 'fas fa-users',  User::class);
     }
 }
