@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Attribute\ProfileField;
 use App\Repository\CandidateRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -101,10 +103,17 @@ class Candidate
     #[ORM\Column(type: Types::INTEGER, options: ['default' => 0])]
     private int $CompletionPercentage = 0;
 
+    /**
+     * @var Collection<int, Candidacy>
+     */
+    #[ORM\OneToMany(targetEntity: Candidacy::class, mappedBy: 'candidate')]
+    private Collection $candidacies;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
+        $this->candidacies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -384,6 +393,36 @@ class Candidate
     public function setCompletionPercentage(int $CompletionPercentage): static
     {
         $this->CompletionPercentage = $CompletionPercentage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidacy>
+     */
+    public function getCandidacies(): Collection
+    {
+        return $this->candidacies;
+    }
+
+    public function addCandidacy(Candidacy $candidacy): static
+    {
+        if (!$this->candidacies->contains($candidacy)) {
+            $this->candidacies->add($candidacy);
+            $candidacy->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidacy(Candidacy $candidacy): static
+    {
+        if ($this->candidacies->removeElement($candidacy)) {
+            // set the owning side to null (unless already changed)
+            if ($candidacy->getCandidate() === $this) {
+                $candidacy->setCandidate(null);
+            }
+        }
 
         return $this;
     }
