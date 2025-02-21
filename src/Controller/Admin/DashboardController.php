@@ -35,7 +35,7 @@ class DashboardController extends AbstractDashboardController
         $user = $this->getUser();
 
         // ajoute un lien vers un CRUD des jobs
-        yield MenuItem::linkToCrud('The Jobs Offer', 'fas fa-list',  Job::class);
-        yield MenuItem::linkToCrud('Contract Type', 'fas fa-list',  Contract::class);
+        yield MenuItem::linkToCrud('The Jobs Offer', 'fas fa-briefcase',  Job::class);
+        yield MenuItem::linkToCrud('Contract Type', 'fas fa-file-signature',  Contract::class);
     }
 }

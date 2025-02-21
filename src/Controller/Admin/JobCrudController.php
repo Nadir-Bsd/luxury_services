@@ -26,11 +26,12 @@ class JobCrudController extends AbstractCrudController
             TextField::new('location'),
             TextField::new('salary'),
             TextField::new('slug'),
-            TextField::new('position'),            
+            TextField::new('position'),
             DateField::new('startingDate'),
             AssociationField::new('Category'),
             AssociationField::new('contract'),
-
+            DateField::new('createdAt')->hideOnForm(),
+            DateField::new('updatedAt')->hideOnForm(),
         ];
     }
 }

@@ -15,14 +15,10 @@ class ContractCrudController extends AbstractCrudController
         return Contract::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('type'),
         ];
     }
-    */
 }
