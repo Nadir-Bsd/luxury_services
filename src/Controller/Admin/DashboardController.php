@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Contract;
 use App\Entity\Experience;
+use App\Entity\Gender;
 use App\Entity\Job;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -41,5 +42,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Contract Type', 'fas fa-file-signature',  Contract::class);
         yield MenuItem::linkToCrud('Category', 'fas fa-list',  Category::class);
         yield MenuItem::linkToCrud('Experience', 'fas fa-business-time',  Experience::class);
+        yield MenuItem::linkToCrud('Gender', 'fas fa-venus-mars',  Gender::class);
     }
 }

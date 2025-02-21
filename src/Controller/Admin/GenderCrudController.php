@@ -2,21 +2,21 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Contract;
+use App\Entity\Gender;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class ContractCrudController extends AbstractCrudController
+class GenderCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Contract::class;
+        return Gender::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('type'),
+            TextField::new('name'),
         ];
     }
 }
