@@ -52,12 +52,16 @@
 							<div class="fill"></div>
 						</div>
 					</div>
+					{% if n == 100  %}
+						<a href="{{ path('app_candidacy_show') }}" class="btn btn-primary">my candidacies</a>
+					{% endif %}
 				</div>
 
 				<div class="clearfix"></div>
 			</div>
 		</div>
 	</section>
+
 
 	{{ include('candidate/_form.html.twig') }}
 {% endblock %}

@@ -61,7 +61,7 @@
                                         <div class="card-action">
                                         {# do the slug on creation #}
                                             <a class="btn btn-md primary border waves-effect waves-dark" href="{{ path('app_job_show', {slug: job.slug }) }}">Details</a>
-                                            <a class="btn btn-md primary waves-effect waves-light" href="#!">Apply</a>
+                                            <a class="btn btn-md primary waves-effect waves-light" href="{{ path('app_candidacy_new', {id: job.id}) }}">Apply</a>
                                         </div>
                                     </div>
                                 </div>

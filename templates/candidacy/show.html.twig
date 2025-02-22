@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<!-- Page Content-->
+	<section id="job-offers" class="section-padding gray-bg">
+		<div class="container">
+			<div class="text-center mb-40">
+				<h2 class="section-title">We have the perfect job for you</h2>
+				<p class="section-sub">just like our candidates, we offer quality, serious & reliable job offers.</p>
+			</div>
+			<div class="portfolio-container">
+
+				<ul class="portfolio-filter brand-filter text-center">
+					<li class="active waves-effect waves-light" data-group="all">All</li>
+					{% for category in categories %}
+						<li class=" waves-effect waves-light" data-group="{{ category.title }}">{{ category.title }}</li>
+					{% endfor %}
+				</ul>
+
+				<div class="portfolio portfolio-with-title col-2 gutter mt-30">
+
+					{# make a card for each candidacies offer #}
+					{% for candidacy in candidacies %}
+						<div class="portfolio-item" data-groups='["all", "{{ candidacy.getJob().category }}"]'>
+							<div class="portfolio-wrapper">
+								<div class="card job-card">
+									<div class="card-content">
+										<span class="title">
+											<span class="card-title">
+												{{ candidacy.getJob().jobTitle }}
+											</span>
+											<span class="ref grey-text">Ref. 1062</span>
+										</span>
+										<div class="metas mb-20">
+											<div class="meta">
+												<i class="material-icons">&#xE53E;</i>
+												{{ candidacy.getJob().salary }}&euro;
+											</div>
+											<div class="meta">
+												<i class="material-icons">&#xE916;</i>
+												{{ candidacy.getJob().createdAt|date("d/m/Y") }}
+											</div>
+											<div class="meta">
+												<i class="material-icons">&#xE55F;</i>
+												{{ candidacy.getJob().location }}
+											</div>
+										</div>
+										<p class="truncate-text">
+											{{ candidacy.getJob().description }}
+										</p>
+									</div>
+									<div
+										class="card-action">
+										{# do the slug on creation #}
+										<a class="btn btn-md primary border waves-effect waves-dark" href="{{ path('app_job_show', {slug: candidacy.getJob().slug }) }}">Details</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+
+
+					<div class="no-item"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
