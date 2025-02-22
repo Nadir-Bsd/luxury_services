@@ -50,7 +50,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gender', 'fas fa-venus-mars',  Gender::class);
         yield MenuItem::linkToCrud('Users', 'fas fa-users',  User::class);
         yield MenuItem::linkToCrud('Candidacy', 'fas fa-envelope-circle-check',  Candidacy::class);
-        yield MenuItem::linkToCrud('The Client', 'fas fa-user-tie', Client::class);
+        yield MenuItem::linkToCrud('The Client', 'fas fa-building', Client::class);
         yield MenuItem::linkToCrud('The Client Contact', 'fas fa-user-tie', SocietyContact::class);
 
     }
