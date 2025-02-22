@@ -9,11 +9,13 @@ use App\Entity\Contract;
 use App\Entity\Experience;
 use App\Entity\Gender;
 use App\Entity\Job;
+use App\Entity\SocietyContact;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Socket;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,6 +51,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Users', 'fas fa-users',  User::class);
         yield MenuItem::linkToCrud('Candidacy', 'fas fa-envelope-circle-check',  Candidacy::class);
         yield MenuItem::linkToCrud('The Client', 'fas fa-user-tie', Client::class);
+        yield MenuItem::linkToCrud('The Client Contact', 'fas fa-user-tie', SocietyContact::class);
 
     }
 }

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -33,9 +35,21 @@ class Client
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
+    /**
+     * @var Collection<int, SocietyContact>
+     */
+    #[ORM\OneToMany(targetEntity: SocietyContact::class, mappedBy: 'client', orphanRemoval: true)]
+    private Collection $societyContacts;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->societyContacts = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->societyName;
     }
 
     public function getId(): ?int
@@ -111,6 +125,36 @@ class Client
     public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SocietyContact>
+     */
+    public function getSocietyContacts(): Collection
+    {
+        return $this->societyContacts;
+    }
+
+    public function addSocietyContact(SocietyContact $societyContact): static
+    {
+        if (!$this->societyContacts->contains($societyContact)) {
+            $this->societyContacts->add($societyContact);
+            $societyContact->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSocietyContact(SocietyContact $societyContact): static
+    {
+        if ($this->societyContacts->removeElement($societyContact)) {
+            // set the owning side to null (unless already changed)
+            if ($societyContact->getClient() === $this) {
+                $societyContact->setClient(null);
+            }
+        }
 
         return $this;
     }
