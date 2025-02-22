@@ -41,10 +41,17 @@ class Client
     #[ORM\OneToMany(targetEntity: SocietyContact::class, mappedBy: 'client', orphanRemoval: true)]
     private Collection $societyContacts;
 
+    /**
+     * @var Collection<int, Job>
+     */
+    #[ORM\OneToMany(targetEntity: Job::class, mappedBy: 'client', orphanRemoval: true)]
+    private Collection $jobs;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
         $this->societyContacts = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -153,6 +160,36 @@ class Client
             // set the owning side to null (unless already changed)
             if ($societyContact->getClient() === $this) {
                 $societyContact->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Job>
+     */
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function addJob(Job $job): static
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs->add($job);
+            $job->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): static
+    {
+        if ($this->jobs->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getClient() === $this) {
+                $job->setClient(null);
             }
         }
 

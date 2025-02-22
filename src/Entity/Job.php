@@ -63,6 +63,10 @@ class Job
     #[ORM\OneToMany(targetEntity: Candidacy::class, mappedBy: 'job')]
     private Collection $candidacies;
 
+    #[ORM\ManyToOne(inversedBy: 'jobs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $client = null;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -261,6 +265,18 @@ class Job
                 $candidacy->setJob(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): static
+    {
+        $this->client = $client;
 
         return $this;
     }
