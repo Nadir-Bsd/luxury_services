@@ -12,7 +12,7 @@
 					<ol class="breadcrumb">
 						<li>
 
-						{# A FAIRE  #}
+							{# A FAIRE  #}
 							<div class="portfolio-nav">
 								<a href="#!" class="waves-effect waves-dark">
 									<i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -48,39 +48,52 @@
 							<li>
 								<span>
 									Pulished at
-								</span>{{ job.createdAt|date("d m Y") }}</li>
+								</span>
+								{{ job.createdAt|date("d m Y") }}</li>
 							<li>
 								<span>
 									Position
-								</span>{{ job.Position }}</li>
+								</span>
+								{{ job.Position }}</li>
 							<li>
 								<span>
 									Contract Type
-								</span>{{ job.contract }}</li>
+								</span>
+								{{ job.contract }}</li>
 							<li>
 								<span>
 									Salary
-								</span>{{ job.salary }} &euro;</li>
+								</span>
+								{{ job.salary }}
+								&euro;</li>
 							<li>
 								<span>
 									Location
-								</span>{{ job.location }}</li>
+								</span>
+								{{ job.location }}</li>
 							<li>
 								<span>
 									Starting date
-								</span>{{ job.startingDate|date("d-m-Y") }}</li>
+								</span>
+								{{ job.startingDate|date("d-m-Y") }}</li>
 						</ul>
-						{% if app.user.getCandidate().getCompletionPercentage() == 100 %}
-							<a class="btn btn-block gradient primary mt-30 waves-effect waves-light" href="{{ path('app_candidacy_new', {id: job.id}) }}">Apply for this job</a>
-							{% if app.user.getCandidate.getCandidacyByJob(job) != null %}
+						{% if app.user %}
+							{% if app.user.getCandidate().getCompletionPercentage() != 100 %}
+								{# a tester #}
+								<a class="btn btn-block gradient primary mt-30 waves-effect waves-light" href="{{ path('app_candidate_edit') }}">Finish your profile for apply</a>
+							{% elseif app.user.getCandidate.getCandidacyByJob(job) != null %}
+								{# if you have finish your profile and already applied #}
 								<div class="btn btn-block btn-success mt-30 waves-effect waves-light disabled">You have applied for this job</div>
+							{% else %}
+								{# if you have you finish your profile but don't applied #}
+								<a class="btn btn-block gradient primary mt-30 waves-effect waves-light" href="{{ path('app_candidacy_new', {id: job.id}) }}">Apply for this job</a>
 							{% endif %}
-						 {% endif %}  
+						{% endif %}
 					</div>
 				</div>
 			</div>
 
-			
+
 			<nav class="single-post-navigation no-margin" role="navigation">
 				<div class="row">
 
