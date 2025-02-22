@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Candidacy;
 use App\Entity\Category;
+use App\Entity\Client;
 use App\Entity\Contract;
 use App\Entity\Experience;
 use App\Entity\Gender;
@@ -47,6 +48,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gender', 'fas fa-venus-mars',  Gender::class);
         yield MenuItem::linkToCrud('Users', 'fas fa-users',  User::class);
         yield MenuItem::linkToCrud('Candidacy', 'fas fa-envelope-circle-check',  Candidacy::class);
+        yield MenuItem::linkToCrud('The Client', 'fas fa-user-tie', Client::class);
 
     }
 }
