@@ -72,9 +72,9 @@
 						</ul>
 						{% if app.user.getCandidate().getCompletionPercentage() == 100 %}
 							<a class="btn btn-block gradient primary mt-30 waves-effect waves-light" href="{{ path('app_candidacy_new', {id: job.id}) }}">Apply for this job</a>
-							{# {% if user already have apply %} #}
+							{% if app.user.getCandidate.getCandidacyByJob(job) != null %}
 								<div class="btn btn-block btn-success mt-30 waves-effect waves-light disabled">You have applied for this job</div>
-							{# {% endif %} #}
+							{% endif %}
 						 {% endif %}  
 					</div>
 				</div>

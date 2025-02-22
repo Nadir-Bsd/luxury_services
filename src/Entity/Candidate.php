@@ -431,4 +431,14 @@ class Candidate
 
         return $this;
     }
+
+    public function getCandidacyByJob(Job $job): ?Candidacy
+    {
+        foreach ($this->candidacies as $candidacy) {
+            if ($candidacy->getJob() === $job) {
+                return $candidacy;
+            }
+        }
+        return null;
+    }
 }
